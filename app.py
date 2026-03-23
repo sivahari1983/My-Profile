@@ -6,7 +6,6 @@ A Flask-based portfolio showcase with PDF profile extraction and dynamic renderi
 from flask import Flask, render_template, jsonify
 import os
 from pathlib import Path
-from generate_portfolio import PortfolioGenerator
 
 # Initialize Flask app
 app = Flask(__name__, 

@@ -25,15 +25,7 @@ http://localhost:5000
 
 You'll see a beautiful portfolio website with default profile data!
 
-## 📄 Step 4: Upload Your PDF (Optional)
-
-1. Scroll to the bottom of the page
-2. Look for "Upload Your Profile PDF" section
-3. Click the upload box or drag-drop your PDF file
-4. Click "Process PDF"
-5. Your portfolio will update with your profile data!
-
-## 🖥️ macOS/Linux Setup
+## ️ macOS/Linux Setup
 
 Open terminal and run:
 

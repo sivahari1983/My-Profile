@@ -70,23 +70,12 @@ A Flask-based web application that converts PDF profiles into beautiful, interac
 
 4. Open `http://localhost:5000` in your browser
 
-## 📄 Using with Your PDF
+## 📄 Static Portfolio (No PDF upload)
 
-1. Click **"Upload Your Profile PDF"** button (at the bottom of the page)
-2. Select your PDF resume/profile document
-3. The system will extract and parse:
-   - Contact information (email, phone, LinkedIn)
-   - Professional summary
-   - Work experience and timeline
-   - Education
-   - Skills and expertise
-   - Languages
-   - Certifications
-   - Projects
+The app now serves a static portfolio based on the data in `app.py`.
+Edit the `DEFAULT_PORTFOLIO` dictionary in `app.py` and rerun the static generator to update the deployed site.
 
-4. Your portfolio will update with the extracted data
-
-## 📋 PDF Structure Recommendations
+## 📋 Portfolio Data Structure Recommendations
 
 For best results, structure your PDF profile with clear section headings:
 

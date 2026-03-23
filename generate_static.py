@@ -198,11 +198,13 @@ def generate_static_site():
     with app.app_context():
         # Render the main page
         rendered_html = render_template('index.html', portfolio=DEFAULT_PORTFOLIO)
-        
-        # Replace url_for calls with relative paths for static files
-        rendered_html = rendered_html.replace('{{ url_for(\'static\', filename=\'css/style.css\') }}', 'static/css/style.css')
-        rendered_html = rendered_html.replace('{{ url_for(\'static\', filename=\'js/main.js\') }}', 'static/js/main.js')
-        # Add more replacements if needed for other static files
+
+        # Convert absolute URLs to relative paths for GitHub Pages project deployment
+        rendered_html = rendered_html.replace('http://localhost/static/css/style.css', 'static/css/style.css')
+        rendered_html = rendered_html.replace('http://localhost/static/js/main.js', 'static/js/main.js')
+        rendered_html = rendered_html.replace('/static/css/style.css', 'static/css/style.css')
+        rendered_html = rendered_html.replace('/static/js/main.js', 'static/js/main.js')
+        # Add more replacements if needed for other static files (images, fonts, etc.)
         
         # Ensure docs directory exists
         docs_dir = Path(__file__).parent / 'docs'

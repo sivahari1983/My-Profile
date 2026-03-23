@@ -59,13 +59,13 @@ DEFAULT_PORTFOLIO = {
         {
             'title': 'Lead Architect & Cloud Advisor',
             'company': 'NordCloud Sweden AB (Client: Ericsson)',
-            'period': 'AUG 2021 – Present',
+            'period': 'AUG 2021 – May 2024',
             'description': 'Azure and AWS Public Cloud - Designed Azure Landing Zone with Entra/AD and PIM for global and China regions. Azure SSO sync with legacy AD. Coordinated product deliverables. AWS Landing Zone design with IAC templates for 10+ applications (EKS, EC2, Lambda). Security Hub and Control Tower implementation.'
         },
         {
             'title': 'Cloud Transformation Architect',
             'company': 'NordCloud Sweden AB (Client: Sandvik)',
-            'period': 'AUG 2022 – Present',
+            'period': 'AUG 2022 – May 2024',
             'description': 'Designed Active Directory, PIM, Monitoring, Patching and Backup solutions in Azure. Cloud transition strategy and roadmaps for Azure/AWS. Network and security landscape review. Data encryption and masking strategy for sensitive information.'
         },
         {

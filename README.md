@@ -1,4 +1,4 @@
-# Professional Portfolio Website Generator
+ate github.io static # Professional Portfolio Website Generator
 
 A Flask-based web application that converts PDF profiles into beautiful, interactive portfolio websites inspired by professional design standards.
 
@@ -148,6 +148,11 @@ Edit `templates/index.html` to add or remove sections. Each section uses:
 ```
 
 ## 🌐 Deployment
+
+### GitHub Pages (static)
+1. In GitHub repository settings → Pages, set source to `main` branch and folder `docs/`.
+2. Commit and push this branch. GitHub Pages will serve site at `https://<your-username>.github.io/<repo-name>/`.
+3. Make sure `docs/index.html` is present and `docs/.nojekyll` is present for assets.
 
 ### Netlify
 1. Connect your GitHub repository

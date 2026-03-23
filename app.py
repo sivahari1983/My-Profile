@@ -3,8 +3,7 @@ Portfolio Generator Web Application
 A Flask-based portfolio showcase with PDF profile extraction and dynamic rendering
 """
 
-from flask import Flask, render_template, request, jsonify, send_from_directory
-from werkzeug.utils import secure_filename
+from flask import Flask, render_template, jsonify
 import os
 from pathlib import Path
 from generate_portfolio import PortfolioGenerator
@@ -15,12 +14,7 @@ app = Flask(__name__,
             static_folder=str(Path(__file__).parent / 'static'))
 
 # Configuration
-app.config['MAX_CONTENT_LENGTH'] = 50 * 1024 * 1024  # 50MB max file size
-app.config['UPLOAD_FOLDER'] = str(Path(__file__).parent / 'uploads')
 app.config['DEBUG'] = True
-
-# Ensure upload folder exists
-os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
 # Default portfolio data
 DEFAULT_PORTFOLIO = {
@@ -198,40 +192,6 @@ def index():
     return render_template('index.html', portfolio=DEFAULT_PORTFOLIO)
 
 
-@app.route('/upload', methods=['POST'])
-def upload_pdf():
-    """Handle PDF profile upload and extraction"""
-    try:
-        if 'pdf_file' not in request.files:
-            return jsonify({'error': 'No file provided'}), 400
-        
-        file = request.files['pdf_file']
-        
-        if file.filename == '':
-            return jsonify({'error': 'No file selected'}), 400
-        
-        # Validate file type
-        if not file.filename.lower().endswith('.pdf'):
-            return jsonify({'error': 'Only PDF files are allowed'}), 400
-        
-        # Save file
-        filename = secure_filename(file.filename)
-        filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-        file.save(filepath)
-        
-        # Extract portfolio data from PDF
-        generator = PortfolioGenerator(filepath)
-        portfolio_data = generator.parse_profile()
-        
-        # Merge with default data for missing fields
-        portfolio = {**DEFAULT_PORTFOLIO, **portfolio_data}
-        
-        return jsonify({'success': True, 'portfolio': portfolio}), 200
-        
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
-
-
 @app.route('/api/portfolio')
 def get_portfolio():
     """API endpoint to get portfolio data as JSON"""
@@ -252,3 +212,4 @@ def internal_error(error):
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
+

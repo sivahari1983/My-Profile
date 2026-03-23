@@ -202,9 +202,11 @@ def generate_static_site():
         # Convert absolute URLs to relative paths for GitHub Pages project deployment
         rendered_html = rendered_html.replace('http://localhost/static/css/style.css', 'static/css/style.css')
         rendered_html = rendered_html.replace('http://localhost/static/js/main.js', 'static/js/main.js')
+        rendered_html = rendered_html.replace('http://localhost/static/', 'static/')
         rendered_html = rendered_html.replace('/static/css/style.css', 'static/css/style.css')
         rendered_html = rendered_html.replace('/static/js/main.js', 'static/js/main.js')
-        # Add more replacements if needed for other static files (images, fonts, etc.)
+        rendered_html = rendered_html.replace('/static/', 'static/')
+        # Add more replacements if needed for other static files (fonts, etc.)
         
         # Ensure docs directory exists
         docs_dir = Path(__file__).parent / 'docs'

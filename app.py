@@ -52,7 +52,7 @@ DEFAULT_PORTFOLIO = {
         {
             'title': 'Lead Solution and Cybersecurity Architect',
             'company': 'Capgemini Engg AB (Client: Telia)',
-            'period': 'MAY 2024 – Present',
+            'period': 'MAY 2024 – Till Now',
             'description': 'Azure and AWS Public Cloud - Design and implement Azure Landing Zone Architecture, Azure Entra Identity Management, NIS2/ISO/PCI-DSS Cybersecurity compliance, Azure Defender and NIST initiatives. AWS CloudFormation templates, Security Hub, Control Tower, WAF implementation. AI Chatbot POC for Landing Zone.'
         },
         {

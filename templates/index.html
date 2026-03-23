@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ portfolio.name }} - Portfolio</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#home" class="nav-logo">{{ portfolio.name.split()[0] }}</a>
+            <div class="nav-menu">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#expertise" class="nav-link">Expertise</a>
+                <a href="#experience" class="nav-link">Experience</a>
+                <a href="#projects" class="nav-link">Projects</a>
+                <a href="#services" class="nav-link">Services</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+            <button class="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">{{ portfolio.name }}</h1>
+            <p class="hero-subtitle">{{ portfolio.title }}</p>
+            <div class="hero-stats">
+                <div class="stat">
+                    <span class="stat-number">{{ portfolio.experience_years }}</span>
+                    <span class="stat-label">Years Experience</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">{{ portfolio.certifications_count }}</span>
+                    <span class="stat-label">Certified</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">{{ portfolio.workshops_delivered }}</span>
+                    <span class="stat-label">Workshops Delivered</span>
+                </div>
+            </div>
+            <div class="hero-cta">
+                <a href="#contact" class="btn btn-primary">Get In Touch</a>
+                <a href="#about" class="btn btn-secondary">Explore Profile</a>
+            </div>
+        </div>
+        <div class="hero-background">
+            <div class="blob blob-1"></div>
+            <div class="blob blob-2"></div>
+            <div class="blob blob-3"></div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-header">
+                <h2>About Me</h2>
+                <p>Professional background and key details</p>
+            </div>
+            
+            <div class="about-content">
+                {% if portfolio.profile_picture %}
+                <div class="about-image">
+                    <img src="{{ url_for('static', filename=portfolio.profile_picture) }}" alt="{{ portfolio.name }}" class="profile-img">
+                </div>
+                {% endif %}
+                
+                <div class="about-text">
+                    <p>{{ portfolio.summary }}</p>
+                </div>
+                
+                <div class="about-grid">
+                    {% if portfolio.about.location %}
+                    <div class="about-card">
+                        <h3>Location</h3>
+                        <p>{{ portfolio.about.location }}</p>
+                    </div>
+                    {% endif %}
+                    
+                    {% if portfolio.about.languages %}
+                    <div class="about-card">
+                        <h3>Languages</h3>
+                        <p>{{ portfolio.about.languages|join(', ') }}</p>
+                    </div>
+                    {% endif %}
+                    
+                    {% if portfolio.about.education %}
+                    <div class="about-card">
+                        <h3>Education</h3>
+                        <p>{{ portfolio.about.education }}</p>
+                    </div>
+                    {% endif %}
+                    
+                    {% if portfolio.about.currently_building %}
+                    <div class="about-card">
+                        <h3>Currently Building</h3>
+                        <p>{{ portfolio.about.currently_building }}</p>
+                    </div>
+                    {% endif %}
+                </div>
+
+                {% if portfolio.contact %}
+                <div class="contact-info">
+                    {% if portfolio.contact.email %}
+                    <a href="mailto:{{ portfolio.contact.email }}" class="contact-link">
+                        <span class="icon">✉</span> {{ portfolio.contact.email }}
+                    </a>
+                    {% endif %}
+                    {% if portfolio.contact.phone %}
+                    <a href="tel:{{ portfolio.contact.phone }}" class="contact-link">
+                        <span class="icon">📱</span> {{ portfolio.contact.phone }}
+                    </a>
+                    {% endif %}
+                    {% if portfolio.contact.linkedin %}
+                    <a href="https://{{ portfolio.contact.linkedin }}" target="_blank" class="contact-link">
+                        <span class="icon">💼</span> LinkedIn
+                    </a>
+                    {% endif %}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Expertise Section -->
+    {% if portfolio.expertise %}
+    <section id="expertise" class="expertise">
+        <div class="container">
+            <div class="section-header">
+                <h2>Expertise</h2>
+                <p>Core competencies and technical domains</p>
+            </div>
+            
+            <div class="expertise-grid">
+                {% for category, skills in portfolio.expertise.items() %}
+                <div class="expertise-card">
+                    <h3>{{ category }}</h3>
+                    <div class="skills-tags">
+                        {% for skill in skills %}
+                        <span class="skill-tag">{{ skill }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
+    <!-- Experience Section -->
+    {% if portfolio.experience %}
+    <section id="experience" class="experience">
+        <div class="container">
+            <div class="section-header">
+                <h2>Experience</h2>
+                <p>Professional journey and roles</p>
+            </div>
+            
+            <div class="timeline">
+                {% for job in portfolio.experience %}
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h3>{{ job.title }}</h3>
+                        <p class="company">{{ job.company }}</p>
+                        <p class="period">{{ job.period }}</p>
+                        {% if job.description %}
+                        <p class="description">{{ job.description }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
+    <!-- Projects Section -->
+    {% if portfolio.projects %}
+    <section id="projects" class="projects">
+        <div class="container">
+            <div class="section-header">
+                <h2>Building Tomorrow, Today</h2>
+                <p>Real-world applications and innovative solutions</p>
+            </div>
+            
+            <div class="projects-grid">
+                {% for project in portfolio.projects %}
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>{{ project.title }}</h3>
+                        {% if project.status %}
+                        <span class="project-status {% if project.status == 'LIVE' %}status-live{% elif project.status == 'Building' %}status-building{% endif %}">
+                            {{ project.status }}
+                        </span>
+                        {% endif %}
+                    </div>
+                    <p>{{ project.description }}</p>
+                    {% if project.technologies %}
+                    <div class="tech-stack">
+                        {% for tech in project.technologies %}
+                        <span class="tech-badge">{{ tech }}</span>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
+    <!-- Services Section -->
+    {% if portfolio.services %}
+    <section id="services" class="services">
+        <div class="container">
+            <div class="section-header">
+                <h2>Services</h2>
+                <p>What I offer</p>
+            </div>
+            
+            <div class="services-grid">
+                {% for service in portfolio.services %}
+                <div class="service-card">
+                    <h3>{{ service.title }}</h3>
+                    <p>{{ service.description }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
+    <!-- Certifications Section -->
+    {% if portfolio.certifications %}
+    <section id="certifications" class="certifications">
+        <div class="container">
+            <div class="section-header">
+                <h2>Certifications</h2>
+                <p>Professional credentials and achievements</p>
+            </div>
+            
+            <div class="certifications-list">
+                {% for cert in portfolio.certifications %}
+                <div class="cert-item">
+                    <div class="cert-icon">🏆</div>
+                    <div class="cert-content">
+                        <h4>{{ cert.title }}</h4>
+                        <div class="cert-meta">
+                            {% if cert.year %}<span class="year">{{ cert.year }}</span>{% endif %}
+                            {% if cert.status %}<span class="status">{{ cert.status }}</span>{% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
+    <!-- Speaking & Events Section -->
+    {% if portfolio.speaking %}
+    <section id="speaking" class="speaking">
+        <div class="container">
+            <div class="section-header">
+                <h2>On Stage & In the Community</h2>
+                <p>Sharing knowledge and industry insights</p>
+            </div>
+            
+            <div class="speaking-stats">
+                <div class="speaking-stat">
+                    <span class="stat-number">{{ portfolio.speaking.workshops }}</span>
+                    <span class="stat-label">Workshops Delivered</span>
+                </div>
+                <div class="speaking-stat">
+                    <span class="stat-number">{{ portfolio.speaking.audience_reached }}</span>
+                    <span class="stat-label">Audience Reached</span>
+                </div>
+            </div>
+            
+            {% if portfolio.speaking.events %}
+            <div class="events-list">
+                {% for event in portfolio.speaking.events %}
+                <div class="event-badge">{{ event }}</div>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+    </section>
+    {% endif %}
+
+    <!-- Skills Section -->
+    {% if portfolio.skills %}
+    <section id="skills" class="skills">
+        <div class="container">
+            <div class="section-header">
+                <h2>Technical Skills</h2>
+                <p>Tools and technologies</p>
+            </div>
+            
+            <div class="skills-container">
+                {% for skill in portfolio.skills %}
+                <span class="skill-badge">{{ skill }}</span>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2>Get In Touch</h2>
+                <p>Let's have a real conversation</p>
+            </div>
+            
+            <div class="contact-content">
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <input type="text" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" placeholder="Your Email" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" placeholder="Subject" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea placeholder="Message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
+                </div>
+                
+                <div class="contact-methods">
+                    {% if portfolio.contact.email %}
+                    <div class="contact-method">
+                        <h3>Email</h3>
+                        <a href="mailto:{{ portfolio.contact.email }}">{{ portfolio.contact.email }}</a>
+                    </div>
+                    {% endif %}
+                    
+                    {% if portfolio.contact.linkedin %}
+                    <div class="contact-method">
+                        <h3>LinkedIn</h3>
+                        <a href="https://{{ portfolio.contact.linkedin }}" target="_blank">Connect with me</a>
+                    </div>
+                    {% endif %}
+                    
+                    {% if portfolio.contact.location %}
+                    <div class="contact-method">
+                        <h3>Location</h3>
+                        <p>{{ portfolio.contact.location }}</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Upload Section -->
+    <section id="upload" class="upload-section">
+        <div class="container">
+            <div class="upload-box">
+                <h3>Upload Your Profile PDF</h3>
+                <p>Extract and showcase your portfolio from a PDF document</p>
+                <form id="uploadForm" enctype="multipart/form-data">
+                    <div class="upload-drop-zone" id="dropZone">
+                        <input type="file" name="pdf_file" id="pdf_file" accept=".pdf" hidden>
+                        <label for="pdf_file" class="upload-label">
+                            <span class="upload-icon">📄</span>
+                            <span class="upload-text">Click to upload or drag and drop</span>
+                            <span class="upload-hint">PDF files only (max 50MB)</span>
+                        </label>
+                    </div>
+                    <button type="submit" class="btn btn-primary" id="submitBtn" style="display: none;">Process PDF</button>
+                </form>
+                <div id="uploadStatus" class="upload-status"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 {{ portfolio.name }}. Personal platform. All views are my own as an individual practitioner.</p>
+            <div class="footer-links">
+                <a href="#home">Back to top</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

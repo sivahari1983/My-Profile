@@ -272,7 +272,8 @@ document.addEventListener('keydown', function(e) {
 // ============================================================================
 
 document.addEventListener('DOMContentLoaded', function() {
-    updateViewCount();
+    // Delay the update slightly to ensure DOM is fully ready
+    setTimeout(updateViewCount, 100);
 });
 
 async function updateViewCount() {
@@ -328,7 +329,11 @@ async function updateViewCount() {
             console.log('Updated localStorage count to:', currentCount);
         } catch (storageError) {
             console.log('localStorage error:', storageError);
-            console.log('Using static value');
+            // As last resort, just increment the displayed number
+            let current = parseInt(viewElement.textContent) || 150;
+            current += 1;
+            viewElement.textContent = current;
+            console.log('Updated display count to:', current);
         }
     }
 }

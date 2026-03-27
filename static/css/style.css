@@ -364,6 +364,13 @@ a:hover {
     animation: fadeInUp 1s ease-out 0.2s both;
 }
 
+.hero-views {
+    color: var(--foreground);
+    font-size: 1.1rem;
+    margin-bottom: var(--spacing-md);
+    font-weight: 600;
+}
+
 @keyframes fadeInUp {
     from {
         opacity: 0;

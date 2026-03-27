@@ -5,6 +5,7 @@ Renders the Flask template with portfolio data to create static HTML files
 """
 
 from flask import Flask, render_template
+import json
 from pathlib import Path
 import shutil
 
@@ -24,7 +25,16 @@ def generate_static_site():
     app.config['PREFERRED_URL_SCHEME'] = 'http'
 
     with app.app_context():
-        rendered_html = render_template('index.html', portfolio=DEFAULT_PORTFOLIO)
+        view_count = 0
+        view_counter_file = Path(__file__).parent / 'view_count.json'
+        if view_counter_file.exists():
+            try:
+                with open(view_counter_file, 'r', encoding='utf-8') as vcf:
+                    view_count = int(json.load(vcf).get('views', 0))
+            except Exception:
+                view_count = 0
+
+        rendered_html = render_template('index.html', portfolio=DEFAULT_PORTFOLIO, view_count=view_count)
 
         rendered_html = rendered_html.replace('http://localhost/static/css/style.css', 'static/css/style.css')
         rendered_html = rendered_html.replace('http://localhost/static/js/main.js', 'static/js/main.js')

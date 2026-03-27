@@ -4,6 +4,7 @@ A Flask-based portfolio showcase with PDF profile extraction and dynamic renderi
 """
 
 from flask import Flask, render_template, jsonify
+import json
 import os
 from pathlib import Path
 
@@ -14,6 +15,26 @@ app = Flask(__name__,
 
 # Configuration
 app.config['DEBUG'] = True
+
+# Simple persistent view counter
+VIEW_COUNT_FILE = Path(__file__).parent / 'view_count.json'
+from threading import Lock
+view_count_lock = Lock()
+
+def load_view_count():
+    if VIEW_COUNT_FILE.exists():
+        try:
+            with open(VIEW_COUNT_FILE, 'r', encoding='utf-8') as f:
+                return int(json.load(f).get('views', 0))
+        except Exception:
+            return 0
+    return 0
+
+def save_view_count(count):
+    with open(VIEW_COUNT_FILE, 'w', encoding='utf-8') as f:
+        json.dump({'views': count}, f)
+
+page_view_count = load_view_count()
 
 # Default portfolio data
 DEFAULT_PORTFOLIO = {
@@ -188,7 +209,18 @@ DEFAULT_PORTFOLIO = {
 @app.route('/')
 def index():
     """Render portfolio homepage"""
-    return render_template('index.html', portfolio=DEFAULT_PORTFOLIO)
+    global page_view_count
+    with view_count_lock:
+        page_view_count += 1
+        current_count = page_view_count
+    return render_template('index.html', portfolio=DEFAULT_PORTFOLIO, view_count=current_count)
+
+
+@app.route('/api/views')
+def get_views():
+    """Return view count as JSON"""
+    with view_count_lock:
+        return jsonify({'views': page_view_count})
 
 
 @app.route('/api/portfolio')

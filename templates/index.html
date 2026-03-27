@@ -33,7 +33,9 @@
         <div class="hero-content">
             <h1 class="hero-title">{{ portfolio.name }}</h1>
             <p class="hero-subtitle">{{ portfolio.title }}</p>
+            {% if view_count and view_count > 0 %}
             <p class="hero-views">Website views: <strong>{{ view_count }}</strong></p>
+            {% endif %}
             <div class="hero-stats">
                 <div class="stat">
                     <span class="stat-number">{{ portfolio.experience_years }}</span>

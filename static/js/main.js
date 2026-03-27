@@ -304,8 +304,18 @@ async function updateViewCount() {
             }
         }
     } catch (error) {
-        // If API is not available, keep the static value
-        console.log('View count API not available, using static value');
+        // If local API is not available, try CountAPI for static sites
+        try {
+            const countApiResponse = await fetch('https://api.countapi.xyz/hit/sivahari1983/My-Profile');
+            if (countApiResponse.ok) {
+                const countData = await countApiResponse.json();
+                if (countData.value) {
+                    viewElement.textContent = countData.value;
+                }
+            }
+        } catch (countError) {
+            console.log('CountAPI also not available, using static value');
+        }
     }
 }
 

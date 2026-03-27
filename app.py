@@ -3,15 +3,19 @@ Portfolio Generator Web Application
 A Flask-based portfolio showcase with PDF profile extraction and dynamic rendering
 """
 
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, jsonify, request
 import json
 import os
 from pathlib import Path
+from flask_cors import CORS
 
 # Initialize Flask app
 app = Flask(__name__, 
             template_folder=str(Path(__file__).parent / 'templates'),
             static_folder=str(Path(__file__).parent / 'static'))
+
+# Enable CORS for all routes
+CORS(app)
 
 # Configuration
 app.config['DEBUG'] = True

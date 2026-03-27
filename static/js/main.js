@@ -277,9 +277,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
 async function updateViewCount() {
     const viewElement = document.querySelector('.hero-views strong');
-    if (!viewElement) return;
+    if (!viewElement) {
+        console.log('View element not found');
+        return;
+    }
+    
+    console.log('Starting view count update');
     
     try {
+        console.log('Trying local API');
         // Increment view count and get updated count
         const response = await fetch('/api/views', {
             method: 'POST',
@@ -290,31 +296,46 @@ async function updateViewCount() {
         
         if (response.ok) {
             const data = await response.json();
+            console.log('Local API success:', data);
             if (data.views && data.views > 0) {
                 viewElement.textContent = data.views;
+                console.log('Updated to:', data.views);
             }
         } else {
+            console.log('Local API POST failed, trying GET');
             // If POST fails, try to fetch current count
             const getResponse = await fetch('/api/views');
             if (getResponse.ok) {
                 const data = await getResponse.json();
+                console.log('Local API GET success:', data);
                 if (data.views && data.views > 0) {
                     viewElement.textContent = data.views;
+                    console.log('Updated to:', data.views);
                 }
+            } else {
+                console.log('Local API GET failed');
             }
         }
     } catch (error) {
+        console.log('Local API error:', error);
         // If local API is not available, try CountAPI for static sites
         try {
-            const countApiResponse = await fetch('https://api.countapi.xyz/hit/sivahari1983/My-Profile');
+            console.log('Trying CountAPI with key: my-portfolio');
+            const countApiResponse = await fetch('https://api.countapi.xyz/hit/my-portfolio');
+            console.log('CountAPI response status:', countApiResponse.status);
             if (countApiResponse.ok) {
                 const countData = await countApiResponse.json();
+                console.log('CountAPI data:', countData);
                 if (countData.value) {
                     viewElement.textContent = countData.value;
+                    console.log('Updated to CountAPI value:', countData.value);
                 }
+            } else {
+                console.log('CountAPI failed with status:', countApiResponse.status);
             }
         } catch (countError) {
-            console.log('CountAPI also not available, using static value');
+            console.log('CountAPI error:', countError);
+            console.log('Using static value');
         }
     }
 }

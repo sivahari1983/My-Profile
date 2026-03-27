@@ -318,22 +318,38 @@ async function updateViewCount() {
                     console.log('Updated to:', data.views);
                 }
             } else {
-                console.log('Local API GET failed');
+                console.log('Local API GET failed - using fallback counting');
+                // If API is not available, use localStorage for client-side counting
+                try {
+                    console.log('Using localStorage for counting');
+                    let currentCount = parseInt(localStorage.getItem('portfolioViewCount') || '150');
+                    console.log('Current localStorage count:', currentCount);
+                    currentCount += 1;
+                    localStorage.setItem('portfolioViewCount', currentCount.toString());
+                    viewElement.textContent = currentCount;
+                    console.log('Updated localStorage count to:', currentCount);
+                } catch (storageError) {
+                    console.log('localStorage error:', storageError.message);
+                    // As last resort, just increment the displayed number
+                    let current = parseInt(viewElement.textContent) || 150;
+                    current += 1;
+                    viewElement.textContent = current;
+                    console.log('Updated display count to:', current);
+                }
             }
         }
     } catch (error) {
-        console.log('Local API error:', error);
-        // If local API is not available, use localStorage for client-side counting
+        console.log('Network error:', error.message);
+        // Fallback for network errors
         try {
-            console.log('Using localStorage for counting');
+            console.log('Using localStorage for counting (network error)');
             let currentCount = parseInt(localStorage.getItem('portfolioViewCount') || '150');
             currentCount += 1;
             localStorage.setItem('portfolioViewCount', currentCount.toString());
             viewElement.textContent = currentCount;
             console.log('Updated localStorage count to:', currentCount);
         } catch (storageError) {
-            console.log('localStorage error:', storageError);
-            // As last resort, just increment the displayed number
+            console.log('localStorage error:', storageError.message);
             let current = parseInt(viewElement.textContent) || 150;
             current += 1;
             viewElement.textContent = current;

@@ -318,23 +318,16 @@ async function updateViewCount() {
         }
     } catch (error) {
         console.log('Local API error:', error);
-        // If local API is not available, try CountAPI for static sites
+        // If local API is not available, use localStorage for client-side counting
         try {
-            console.log('Trying CountAPI with key: my-portfolio');
-            const countApiResponse = await fetch('https://api.countapi.xyz/hit/my-portfolio');
-            console.log('CountAPI response status:', countApiResponse.status);
-            if (countApiResponse.ok) {
-                const countData = await countApiResponse.json();
-                console.log('CountAPI data:', countData);
-                if (countData.value) {
-                    viewElement.textContent = countData.value;
-                    console.log('Updated to CountAPI value:', countData.value);
-                }
-            } else {
-                console.log('CountAPI failed with status:', countApiResponse.status);
-            }
-        } catch (countError) {
-            console.log('CountAPI error:', countError);
+            console.log('Using localStorage for counting');
+            let currentCount = parseInt(localStorage.getItem('portfolioViewCount') || '150');
+            currentCount += 1;
+            localStorage.setItem('portfolioViewCount', currentCount.toString());
+            viewElement.textContent = currentCount;
+            console.log('Updated localStorage count to:', currentCount);
+        } catch (storageError) {
+            console.log('localStorage error:', storageError);
             console.log('Using static value');
         }
     }

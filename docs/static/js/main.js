@@ -272,7 +272,7 @@ document.addEventListener('keydown', function(e) {
 // ============================================================================
 
 // Replace with your deployed API URL (e.g., https://my-app.railway.app)
-const API_BASE_URL = 'https://your-deployed-api-url.railway.app';
+const API_BASE_URL = 'https://sivahari1983.github.io/My-Profile/';
 
 // ============================================================================
 // VIEW COUNT UPDATE

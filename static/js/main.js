@@ -271,19 +271,23 @@ document.addEventListener('keydown', function(e) {
 // VIEW COUNT UPDATE
 // ============================================================================
 
-document.addEventListener('DOMContentLoaded', function() {
-    // Delay the update slightly to ensure DOM is fully ready
-    setTimeout(updateViewCount, 100);
+window.addEventListener('load', function() {
+    // Ensure everything is loaded
+    setTimeout(updateViewCount, 500);
 });
 
 async function updateViewCount() {
+    console.log('updateViewCount called at', new Date().toISOString());
     const viewElement = document.querySelector('.hero-views strong');
+    console.log('viewElement:', viewElement, 'tagName:', viewElement?.tagName, 'textContent:', viewElement?.textContent);
     if (!viewElement) {
-        console.log('View element not found');
+        console.log('View element not found - checking all strong elements');
+        const allStrong = document.querySelectorAll('strong');
+        console.log('All strong elements:', allStrong.length, Array.from(allStrong).map(s => s.textContent));
         return;
     }
     
-    console.log('Starting view count update');
+    console.log('Starting view count update, current text:', viewElement.textContent);
     
     try {
         console.log('Trying local API');

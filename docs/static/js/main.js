@@ -268,6 +268,13 @@ document.addEventListener('keydown', function(e) {
 });
 
 // ============================================================================
+// CONFIGURATION
+// ============================================================================
+
+// Replace with your deployed API URL (e.g., https://my-app.railway.app)
+const API_BASE_URL = 'https://your-deployed-api-url.railway.app';
+
+// ============================================================================
 // VIEW COUNT UPDATE
 // ============================================================================
 
@@ -292,7 +299,7 @@ async function updateViewCount() {
     try {
         console.log('Trying local API');
         // Increment view count and get updated count
-        const response = await fetch('/api/views', {
+        const response = await fetch(`${API_BASE_URL}/api/views`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -309,7 +316,7 @@ async function updateViewCount() {
         } else {
             console.log('Local API POST failed, trying GET');
             // If POST fails, try to fetch current count
-            const getResponse = await fetch('/api/views');
+            const getResponse = await fetch(`${API_BASE_URL}/api/views`);
             if (getResponse.ok) {
                 const data = await getResponse.json();
                 console.log('Local API GET success:', data);

@@ -209,18 +209,22 @@ DEFAULT_PORTFOLIO = {
 @app.route('/')
 def index():
     """Render portfolio homepage"""
-    global page_view_count
-    with view_count_lock:
-        page_view_count += 1
-        current_count = page_view_count
-    return render_template('index.html', portfolio=DEFAULT_PORTFOLIO, view_count=current_count)
+    return render_template('index.html', portfolio=DEFAULT_PORTFOLIO, view_count=page_view_count)
 
 
-@app.route('/api/views')
+@app.route('/api/views', methods=['GET', 'POST'])
 def get_views():
-    """Return view count as JSON"""
-    with view_count_lock:
-        return jsonify({'views': page_view_count})
+    """Return view count as JSON, or increment on POST"""
+    if request.method == 'POST':
+        global page_view_count
+        with view_count_lock:
+            page_view_count += 1
+            current_count = page_view_count
+        save_view_count(current_count)
+        return jsonify({'views': current_count})
+    else:
+        with view_count_lock:
+            return jsonify({'views': page_view_count})
 
 
 @app.route('/api/portfolio')

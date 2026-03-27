@@ -268,6 +268,48 @@ document.addEventListener('keydown', function(e) {
 });
 
 // ============================================================================
+// VIEW COUNT UPDATE
+// ============================================================================
+
+document.addEventListener('DOMContentLoaded', function() {
+    updateViewCount();
+});
+
+async function updateViewCount() {
+    const viewElement = document.querySelector('.hero-views strong');
+    if (!viewElement) return;
+    
+    try {
+        // Increment view count and get updated count
+        const response = await fetch('/api/views', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        
+        if (response.ok) {
+            const data = await response.json();
+            if (data.views && data.views > 0) {
+                viewElement.textContent = data.views;
+            }
+        } else {
+            // If POST fails, try to fetch current count
+            const getResponse = await fetch('/api/views');
+            if (getResponse.ok) {
+                const data = await getResponse.json();
+                if (data.views && data.views > 0) {
+                    viewElement.textContent = data.views;
+                }
+            }
+        }
+    } catch (error) {
+        // If API is not available, keep the static value
+        console.log('View count API not available, using static value');
+    }
+}
+
+// ============================================================================
 // INITIALIZE
 // ============================================================================
 

@@ -268,100 +268,36 @@ document.addEventListener('keydown', function(e) {
 });
 
 // ============================================================================
-// CONFIGURATION
-// ============================================================================
-
-// Replace with your deployed API URL (e.g., https://my-app.railway.app)
-const API_BASE_URL = 'https://sivahari1983.github.io/My-Profile/';
-
-// ============================================================================
 // VIEW COUNT UPDATE
+// Reads the actual count from view_count.json (the persistent database)
+// updated hourly by GitHub Actions.
 // ============================================================================
+
+const VIEW_COUNT_URL = 'https://raw.githubusercontent.com/sivahari1983/My-Profile/main/view_count.json';
 
 window.addEventListener('load', function() {
-    // Ensure everything is loaded
     setTimeout(updateViewCount, 500);
 });
 
 async function updateViewCount() {
-    console.log('updateViewCount called at', new Date().toISOString());
     const viewElement = document.querySelector('.hero-views strong');
-    console.log('viewElement:', viewElement, 'tagName:', viewElement?.tagName, 'textContent:', viewElement?.textContent);
-    if (!viewElement) {
-        console.log('View element not found - checking all strong elements');
-        const allStrong = document.querySelectorAll('strong');
-        console.log('All strong elements:', allStrong.length, Array.from(allStrong).map(s => s.textContent));
-        return;
-    }
-    
-    console.log('Starting view count update, current text:', viewElement.textContent);
-    
+    if (!viewElement) return;
+
     try {
-        console.log('Trying local API');
-        // Increment view count and get updated count
-        const response = await fetch(`${API_BASE_URL}/api/views`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
+        // Fetch the real count from the JSON database, bypassing any CDN cache
+        const response = await fetch(VIEW_COUNT_URL + '?t=' + Date.now(), {
+            cache: 'no-store'
         });
-        
+
         if (response.ok) {
             const data = await response.json();
-            console.log('Local API success:', data);
             if (data.views && data.views > 0) {
                 viewElement.textContent = data.views;
-                console.log('Updated to:', data.views);
-            }
-        } else {
-            console.log('Local API POST failed, trying GET');
-            // If POST fails, try to fetch current count
-            const getResponse = await fetch(`${API_BASE_URL}/api/views`);
-            if (getResponse.ok) {
-                const data = await getResponse.json();
-                console.log('Local API GET success:', data);
-                if (data.views && data.views > 0) {
-                    viewElement.textContent = data.views;
-                    console.log('Updated to:', data.views);
-                }
-            } else {
-                console.log('Local API GET failed - using fallback counting');
-                // If API is not available, use localStorage for client-side counting
-                try {
-                    console.log('Using localStorage for counting');
-                    let currentCount = parseInt(localStorage.getItem('portfolioViewCount') || '150');
-                    console.log('Current localStorage count:', currentCount);
-                    currentCount += 1;
-                    localStorage.setItem('portfolioViewCount', currentCount.toString());
-                    viewElement.textContent = currentCount;
-                    console.log('Updated localStorage count to:', currentCount);
-                } catch (storageError) {
-                    console.log('localStorage error:', storageError.message);
-                    // As last resort, just increment the displayed number
-                    let current = parseInt(viewElement.textContent) || 150;
-                    current += 1;
-                    viewElement.textContent = current;
-                    console.log('Updated display count to:', current);
-                }
             }
         }
     } catch (error) {
-        console.log('Network error:', error.message);
-        // Fallback for network errors
-        try {
-            console.log('Using localStorage for counting (network error)');
-            let currentCount = parseInt(localStorage.getItem('portfolioViewCount') || '150');
-            currentCount += 1;
-            localStorage.setItem('portfolioViewCount', currentCount.toString());
-            viewElement.textContent = currentCount;
-            console.log('Updated localStorage count to:', currentCount);
-        } catch (storageError) {
-            console.log('localStorage error:', storageError.message);
-            let current = parseInt(viewElement.textContent) || 150;
-            current += 1;
-            viewElement.textContent = current;
-            console.log('Updated display count to:', current);
-        }
+        // Network error — keep the value baked into the HTML at build time
+        console.log('Could not fetch view count:', error.message);
     }
 }
 

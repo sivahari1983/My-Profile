@@ -292,7 +292,9 @@ async function updateViewCount() {
         if (response.ok) {
             const data = await response.json();
             if (data.views && data.views > 0) {
-                viewElement.textContent = data.views;
+                const displayed = parseInt(viewElement.textContent) || 0;
+                // Never show a lower count than what the page already displays
+                viewElement.textContent = Math.max(data.views, displayed);
             }
         }
     } catch (error) {

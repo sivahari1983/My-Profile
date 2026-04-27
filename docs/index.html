@@ -7,9 +7,12 @@
     <link rel="stylesheet" href="static/css/style.css">
 </head>
 <body>
-    <canvas id="hero-canvas"></canvas>
+    <!-- Custom cursor -->
+    <div id="cursor-dot"></div>
+    <div id="cursor-ring"></div>
+
     <!-- Navigation -->
-    <nav class="navbar">
+    <nav id="navbar" class="navbar">
         <div class="nav-container">
             <a href="#home" class="nav-logo">Hariharan</a>
             <div class="nav-menu">
@@ -31,35 +34,29 @@
 
     <!-- Hero Section -->
     <section id="home" class="hero">
+        <canvas id="hero-canvas"></canvas>
         <div class="hero-content">
             <h1 class="hero-title">Hariharan Natarajan</h1>
-            <p class="hero-subtitle">Lead Architect · Cloud Architect · GenAI Builder · Scrum Master · Product Owner · Project Manager · CyberSecurity Architect</p>
-            
-            <p class="hero-views">Website views: <strong>604</strong></p>
-            
+            <p class="hero-subtitle"><span id="typewriter-text"></span></p>
+            <p class="hero-views">Website views: <strong id="view-count">604</strong></p>
             <div class="hero-stats">
                 <div class="stat">
-                    <span class="stat-number">20+</span>
+                    <span class="stat-number" data-count="20" data-suffix="+">20+</span>
                     <span class="stat-label">Years Experience</span>
                 </div>
                 <div class="stat">
-                    <span class="stat-number">20X</span>
+                    <span class="stat-number" data-count="20" data-suffix="X">20X</span>
                     <span class="stat-label">Certified</span>
                 </div>
                 <div class="stat">
-                    <span class="stat-number">10+</span>
+                    <span class="stat-number" data-count="10" data-suffix="+">10+</span>
                     <span class="stat-label">Workshops Delivered</span>
                 </div>
             </div>
             <div class="hero-cta">
-                <a href="#contact" class="btn btn-primary">Get In Touch</a>
-                <a href="#about" class="btn btn-secondary">Explore Profile</a>
+                <a href="#contact" class="btn btn-primary"><span class="btn-inner">Get In Touch</span></a>
+                <a href="#about" class="btn btn-secondary"><span class="btn-inner">Explore Profile</span></a>
             </div>
-        </div>
-        <div class="hero-background">
-            <div class="blob blob-1"></div>
-            <div class="blob blob-2"></div>
-            <div class="blob blob-3"></div>
         </div>
     </section>
 
@@ -146,7 +143,7 @@
             
             <div class="expertise-grid">
                 
-                <div class="expertise-card">
+                <div class="expertise-card reveal-item">
                     <h3>Azure Public Cloud</h3>
                     <div class="skills-tags">
                         
@@ -177,7 +174,7 @@
                     </div>
                 </div>
                 
-                <div class="expertise-card">
+                <div class="expertise-card reveal-item">
                     <h3>AWS Public Cloud</h3>
                     <div class="skills-tags">
                         
@@ -202,7 +199,7 @@
                     </div>
                 </div>
                 
-                <div class="expertise-card">
+                <div class="expertise-card reveal-item">
                     <h3>HashiCorp Tools</h3>
                     <div class="skills-tags">
                         
@@ -221,7 +218,7 @@
                     </div>
                 </div>
                 
-                <div class="expertise-card">
+                <div class="expertise-card reveal-item">
                     <h3>Infrastructure as Code</h3>
                     <div class="skills-tags">
                         
@@ -236,7 +233,7 @@
                     </div>
                 </div>
                 
-                <div class="expertise-card">
+                <div class="expertise-card reveal-item">
                     <h3>DevOps &amp; CI/CD</h3>
                     <div class="skills-tags">
                         
@@ -253,7 +250,7 @@
                     </div>
                 </div>
                 
-                <div class="expertise-card">
+                <div class="expertise-card reveal-item">
                     <h3>FinOps &amp; Cloud Economics</h3>
                     <div class="skills-tags">
                         
@@ -268,7 +265,7 @@
                     </div>
                 </div>
                 
-                <div class="expertise-card">
+                <div class="expertise-card reveal-item">
                     <h3>SAP Expertise</h3>
                     <div class="skills-tags">
                         
@@ -287,7 +284,7 @@
                     </div>
                 </div>
                 
-                <div class="expertise-card">
+                <div class="expertise-card reveal-item">
                     <h3>Project Management</h3>
                     <div class="skills-tags">
                         
@@ -324,11 +321,12 @@
                 <p>Professional journey and roles</p>
             </div>
             
-            <div class="timeline">
+            <div class="timeline" id="timeline">
+                <div class="timeline-track"><div id="timeline-fill" class="timeline-track-fill"></div></div>
                 
                 <div class="timeline-item">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content reveal-item">
                         <h3>Lead Solution and Cybersecurity Architect</h3>
                         <p class="company">Capgemini Engg AB (Client: Telia)</p>
                         <p class="period">MAY 2024 – Till Now</p>
@@ -339,8 +337,8 @@
                 </div>
                 
                 <div class="timeline-item">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content reveal-item">
                         <h3>Lead Architect &amp; Cloud Advisor</h3>
                         <p class="company">NordCloud Sweden AB (Client: Ericsson)</p>
                         <p class="period">AUG 2021 – MAY 2024</p>
@@ -351,8 +349,8 @@
                 </div>
                 
                 <div class="timeline-item">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content reveal-item">
                         <h3>Cloud Transformation Architect</h3>
                         <p class="company">NordCloud Sweden AB (Client: Sandvik)</p>
                         <p class="period">AUG 2022 – May 2024</p>
@@ -363,8 +361,8 @@
                 </div>
                 
                 <div class="timeline-item">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content reveal-item">
                         <h3>Solution Architect</h3>
                         <p class="company">NordCloud Sweden AB (Client: H&amp;M)</p>
                         <p class="period">JAN 2022 – AUG 2022</p>
@@ -375,8 +373,8 @@
                 </div>
                 
                 <div class="timeline-item">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content reveal-item">
                         <h3>Lead Architect &amp; Product Owner</h3>
                         <p class="company">TATA Consultancy Services (Client: Ericsson)</p>
                         <p class="period">OCT 2019 – JULY 2021</p>
@@ -387,8 +385,8 @@
                 </div>
                 
                 <div class="timeline-item">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content reveal-item">
                         <h3>Agile Project Manager</h3>
                         <p class="company">TATA Consultancy Services (Client: MERSK – APM Terminals)</p>
                         <p class="period">MAY 2019 – OCT 2019</p>
@@ -399,8 +397,8 @@
                 </div>
                 
                 <div class="timeline-item">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content reveal-item">
                         <h3>SAP Architect, Onsite Lead &amp; Scrum Master</h3>
                         <p class="company">TATA Consultancy Services (Client: H&amp;M, AGL, Kingfisher IT Services)</p>
                         <p class="period">JULY 2016 – MAY 2019</p>
@@ -411,8 +409,8 @@
                 </div>
                 
                 <div class="timeline-item">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content reveal-item">
                         <h3>SAP Hybris C4C CRM/SD Consultant &amp; Scrum Master</h3>
                         <p class="company">TATA Consultancy Services (Client: Apple, Commonwealth Bank, Ashok Leyland, Jaguar Land Rover)</p>
                         <p class="period">OCT 2008 – JULY 2016</p>
@@ -423,8 +421,8 @@
                 </div>
                 
                 <div class="timeline-item">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content reveal-item">
                         <h3>SAP BOPF ABAP Developer</h3>
                         <p class="company">TATA Consultancy Services (Client: SAP AG)</p>
                         <p class="period">OCT 2007 – OCT 2008</p>
@@ -435,8 +433,8 @@
                 </div>
                 
                 <div class="timeline-item">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content reveal-item">
                         <h3>SAP Workflow Architect</h3>
                         <p class="company">L&amp;T Infotech (Client: SAP AG)</p>
                         <p class="period">FEB 2007 – OCT 2007</p>
@@ -447,8 +445,8 @@
                 </div>
                 
                 <div class="timeline-item">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content reveal-item">
                         <h3>SAP ABAP Developer</h3>
                         <p class="company">HCL Technology (Client: Mattson)</p>
                         <p class="period">MAR 2005 – FEB 2007</p>
@@ -474,7 +472,7 @@
             
             <div class="projects-grid">
                 
-                <div class="project-card">
+                <div class="project-card reveal-item">
                     <div class="project-header">
                         <h3>Azure enterprise landing zone in Terraform IaC</h3>
                         
@@ -499,7 +497,7 @@
                     
                 </div>
                 
-                <div class="project-card">
+                <div class="project-card reveal-item">
                     <div class="project-header">
                         <h3>AI Chatbot for Azure security and compliance</h3>
                         
@@ -542,22 +540,22 @@
             
             <div class="services-grid">
                 
-                <div class="service-card">
+                <div class="service-card reveal-item">
                     <h3>Cloud Architecture &amp; Migration</h3>
                     <p>Well-Architected reviews, migration roadmaps, landing zones, hybrid connectivity.</p>
                 </div>
                 
-                <div class="service-card">
+                <div class="service-card reveal-item">
                     <h3>GenAI Adoption &amp; Application Development</h3>
                     <p>RAG, agentic AI, LLM deployment, AI governance, production GenAI apps.</p>
                 </div>
                 
-                <div class="service-card">
+                <div class="service-card reveal-item">
                     <h3>Kubernetes &amp; Container Strategy</h3>
                     <p>EKS/OpenShift architecture, GitOps, service mesh, security, platform engineering.</p>
                 </div>
                 
-                <div class="service-card">
+                <div class="service-card reveal-item">
                     <h3>FinOps &amp; Cloud Economics</h3>
                     <p>Rightsizing, reserved capacity, TCO modeling, cost governance.</p>
                 </div>
@@ -578,7 +576,7 @@
             
             <div class="certifications-list">
                 
-                <div class="cert-item">
+                <div class="cert-item reveal-item">
                     <div class="cert-icon">🏆</div>
                     <div class="cert-content">
                         <h4>Prince 2 Agile Foundation</h4>
@@ -589,7 +587,7 @@
                     </div>
                 </div>
                 
-                <div class="cert-item">
+                <div class="cert-item reveal-item">
                     <div class="cert-icon">🏆</div>
                     <div class="cert-content">
                         <h4>Professional Scrum Product Owner I</h4>
@@ -600,7 +598,7 @@
                     </div>
                 </div>
                 
-                <div class="cert-item">
+                <div class="cert-item reveal-item">
                     <div class="cert-icon">🏆</div>
                     <div class="cert-content">
                         <h4>Professional Scrum Product Owner II</h4>
@@ -611,7 +609,7 @@
                     </div>
                 </div>
                 
-                <div class="cert-item">
+                <div class="cert-item reveal-item">
                     <div class="cert-icon">🏆</div>
                     <div class="cert-content">
                         <h4>Professional Scrum Master I</h4>
@@ -622,7 +620,7 @@
                     </div>
                 </div>
                 
-                <div class="cert-item">
+                <div class="cert-item reveal-item">
                     <div class="cert-icon">🏆</div>
                     <div class="cert-content">
                         <h4>Professional Scrum Master II</h4>
@@ -633,7 +631,7 @@
                     </div>
                 </div>
                 
-                <div class="cert-item">
+                <div class="cert-item reveal-item">
                     <div class="cert-icon">🏆</div>
                     <div class="cert-content">
                         <h4>SAP Certified App Associate - CRM Fundamentals</h4>
@@ -644,7 +642,7 @@
                     </div>
                 </div>
                 
-                <div class="cert-item">
+                <div class="cert-item reveal-item">
                     <div class="cert-icon">🏆</div>
                     <div class="cert-content">
                         <h4>SAP Certified Dev Associate - SAP Workflow with SAP NetWeaver</h4>
@@ -655,7 +653,7 @@
                     </div>
                 </div>
                 
-                <div class="cert-item">
+                <div class="cert-item reveal-item">
                     <div class="cert-icon">🏆</div>
                     <div class="cert-content">
                         <h4>Azure Solution Architect Expert</h4>
@@ -666,7 +664,7 @@
                     </div>
                 </div>
                 
-                <div class="cert-item">
+                <div class="cert-item reveal-item">
                     <div class="cert-icon">🏆</div>
                     <div class="cert-content">
                         <h4>Azure DevOps Engineer Expert</h4>
@@ -677,7 +675,7 @@
                     </div>
                 </div>
                 
-                <div class="cert-item">
+                <div class="cert-item reveal-item">
                     <div class="cert-icon">🏆</div>
                     <div class="cert-content">
                         <h4>Azure Cybersecurity Expert</h4>
@@ -688,7 +686,7 @@
                     </div>
                 </div>
                 
-                <div class="cert-item">
+                <div class="cert-item reveal-item">
                     <div class="cert-icon">🏆</div>
                     <div class="cert-content">
                         <h4>Azure Administrator Associate</h4>
@@ -699,7 +697,7 @@
                     </div>
                 </div>
                 
-                <div class="cert-item">
+                <div class="cert-item reveal-item">
                     <div class="cert-icon">🏆</div>
                     <div class="cert-content">
                         <h4>Azure Data Engineer Associate</h4>
@@ -710,7 +708,7 @@
                     </div>
                 </div>
                 
-                <div class="cert-item">
+                <div class="cert-item reveal-item">
                     <div class="cert-icon">🏆</div>
                     <div class="cert-content">
                         <h4>Azure Network Engineer Associate</h4>
@@ -721,7 +719,7 @@
                     </div>
                 </div>
                 
-                <div class="cert-item">
+                <div class="cert-item reveal-item">
                     <div class="cert-icon">🏆</div>
                     <div class="cert-content">
                         <h4>Azure Security Engineer Associate</h4>
@@ -732,7 +730,7 @@
                     </div>
                 </div>
                 
-                <div class="cert-item">
+                <div class="cert-item reveal-item">
                     <div class="cert-icon">🏆</div>
                     <div class="cert-content">
                         <h4>AWS Certified Solutions Architect</h4>
@@ -743,7 +741,7 @@
                     </div>
                 </div>
                 
-                <div class="cert-item">
+                <div class="cert-item reveal-item">
                     <div class="cert-icon">🏆</div>
                     <div class="cert-content">
                         <h4>AWS Certified Sys-Ops Administrator</h4>
@@ -754,7 +752,7 @@
                     </div>
                 </div>
                 
-                <div class="cert-item">
+                <div class="cert-item reveal-item">
                     <div class="cert-icon">🏆</div>
                     <div class="cert-content">
                         <h4>HashiCorp Certified: Terraform</h4>
@@ -765,7 +763,7 @@
                     </div>
                 </div>
                 
-                <div class="cert-item">
+                <div class="cert-item reveal-item">
                     <div class="cert-icon">🏆</div>
                     <div class="cert-content">
                         <h4>HashiCorp Certified: Consul</h4>
@@ -776,7 +774,7 @@
                     </div>
                 </div>
                 
-                <div class="cert-item">
+                <div class="cert-item reveal-item">
                     <div class="cert-icon">🏆</div>
                     <div class="cert-content">
                         <h4>HashiCorp Certified: Vault</h4>
@@ -787,7 +785,7 @@
                     </div>
                 </div>
                 
-                <div class="cert-item">
+                <div class="cert-item reveal-item">
                     <div class="cert-icon">🏆</div>
                     <div class="cert-content">
                         <h4>FinOps Certified Practitioner</h4>
@@ -862,7 +860,7 @@
                         <div class="form-group">
                             <textarea placeholder="Message" rows="5" required></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary">Send Message</button>
+                        <button type="submit" class="btn btn-primary"><span class="btn-inner">Send Message</span></button>
                     </form>
                 </div>
                 
@@ -902,6 +900,7 @@
         </div>
     </footer>
 
+    <button id="back-top" aria-label="Back to top">↑</button>
     <script src="static/js/main.js"></script>
 </body>
 </html>

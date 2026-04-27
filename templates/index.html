@@ -7,8 +7,12 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
+    <!-- Custom cursor -->
+    <div id="cursor-dot"></div>
+    <div id="cursor-ring"></div>
+
     <!-- Navigation -->
-    <nav class="navbar">
+    <nav id="navbar" class="navbar">
         <div class="nav-container">
             <a href="#home" class="nav-logo">{{ portfolio.name.split()[0] }}</a>
             <div class="nav-menu">
@@ -30,35 +34,29 @@
 
     <!-- Hero Section -->
     <section id="home" class="hero">
+        <canvas id="hero-canvas"></canvas>
         <div class="hero-content">
             <h1 class="hero-title">{{ portfolio.name }}</h1>
-            <p class="hero-subtitle">{{ portfolio.title }}</p>
-            {% if view_count and view_count > 0 %}
-            <p class="hero-views">Website views: <strong>{{ view_count }}</strong></p>
-            {% endif %}
+            <p class="hero-subtitle"><span id="typewriter-text"></span></p>
+            <p class="hero-views">Website views: <strong id="view-count">{{ view_count if view_count else '—' }}</strong></p>
             <div class="hero-stats">
                 <div class="stat">
-                    <span class="stat-number">{{ portfolio.experience_years }}</span>
+                    <span class="stat-number" data-count="20" data-suffix="+">{{ portfolio.experience_years }}</span>
                     <span class="stat-label">Years Experience</span>
                 </div>
                 <div class="stat">
-                    <span class="stat-number">{{ portfolio.certifications_count }}</span>
+                    <span class="stat-number" data-count="20" data-suffix="X">{{ portfolio.certifications_count }}</span>
                     <span class="stat-label">Certified</span>
                 </div>
                 <div class="stat">
-                    <span class="stat-number">{{ portfolio.workshops_delivered }}</span>
+                    <span class="stat-number" data-count="10" data-suffix="+">{{ portfolio.workshops_delivered }}</span>
                     <span class="stat-label">Workshops Delivered</span>
                 </div>
             </div>
             <div class="hero-cta">
-                <a href="#contact" class="btn btn-primary">Get In Touch</a>
-                <a href="#about" class="btn btn-secondary">Explore Profile</a>
+                <a href="#contact" class="btn btn-primary"><span class="btn-inner">Get In Touch</span></a>
+                <a href="#about" class="btn btn-secondary"><span class="btn-inner">Explore Profile</span></a>
             </div>
-        </div>
-        <div class="hero-background">
-            <div class="blob blob-1"></div>
-            <div class="blob blob-2"></div>
-            <div class="blob blob-3"></div>
         </div>
     </section>
 
@@ -145,7 +143,7 @@
             
             <div class="expertise-grid">
                 {% for category, skills in portfolio.expertise.items() %}
-                <div class="expertise-card">
+                <div class="expertise-card reveal-item">
                     <h3>{{ category }}</h3>
                     <div class="skills-tags">
                         {% for skill in skills %}
@@ -168,11 +166,12 @@
                 <p>Professional journey and roles</p>
             </div>
             
-            <div class="timeline">
+            <div class="timeline" id="timeline">
+                <div class="timeline-track"><div id="timeline-fill" class="timeline-track-fill"></div></div>
                 {% for job in portfolio.experience %}
                 <div class="timeline-item">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content reveal-item">
                         <h3>{{ job.title }}</h3>
                         <p class="company">{{ job.company }}</p>
                         <p class="period">{{ job.period }}</p>
@@ -198,7 +197,7 @@
             
             <div class="projects-grid">
                 {% for project in portfolio.projects %}
-                <div class="project-card">
+                <div class="project-card reveal-item">
                     <div class="project-header">
                         <h3>{{ project.title }}</h3>
                         {% if project.status %}
@@ -233,7 +232,7 @@
             
             <div class="services-grid">
                 {% for service in portfolio.services %}
-                <div class="service-card">
+                <div class="service-card reveal-item">
                     <h3>{{ service.title }}</h3>
                     <p>{{ service.description }}</p>
                 </div>
@@ -254,7 +253,7 @@
             
             <div class="certifications-list">
                 {% for cert in portfolio.certifications %}
-                <div class="cert-item">
+                <div class="cert-item reveal-item">
                     <div class="cert-icon">🏆</div>
                     <div class="cert-content">
                         <h4>{{ cert.title }}</h4>
@@ -342,7 +341,7 @@
                         <div class="form-group">
                             <textarea placeholder="Message" rows="5" required></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary">Send Message</button>
+                        <button type="submit" class="btn btn-primary"><span class="btn-inner">Send Message</span></button>
                     </form>
                 </div>
                 
@@ -382,6 +381,7 @@
         </div>
     </footer>
 
+    <button id="back-top" aria-label="Back to top">↑</button>
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 </html>

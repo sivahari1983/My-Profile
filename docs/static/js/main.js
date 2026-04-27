@@ -85,7 +85,7 @@ function createScrollToTopButton() {
         width: 50px;
         height: 50px;
         padding: 0;
-        background: linear-gradient(135deg, #6366f1, #8b5cf6);
+        background: linear-gradient(135deg, #22c55e, #4ade80);
         color: white;
         border: none;
         border-radius: 50%;

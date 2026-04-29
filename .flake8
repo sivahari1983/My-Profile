@@ -1,0 +1,22 @@
+[flake8]
+max-line-length = 127
+max-complexity = 10
+exclude =
+    .git,
+    __pycache__,
+    docs,
+    venv,
+    .venv,
+    *.egg-info,
+    dist,
+    build
+ignore =
+    # Line too long (handled by max-line-length)
+    E501,
+    # Whitespace before ':'
+    E203,
+    # Line break before binary operator
+    W503
+per-file-ignores =
+    # Allow long lines in test files for readability
+    tests/*.py: E501

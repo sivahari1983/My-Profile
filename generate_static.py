@@ -6,6 +6,8 @@ Renders the Flask template with portfolio data to create static HTML files
 
 from flask import Flask, render_template
 import json
+import os
+import stat
 from pathlib import Path
 import shutil
 
@@ -53,7 +55,13 @@ def generate_static_site():
         static_dest = docs_dir / 'static'
 
         if static_dest.exists():
-            shutil.rmtree(static_dest)
+            def _rm_readonly(func, path, _):
+                os.chmod(path, stat.S_IWRITE)
+                func(path)
+            try:
+                shutil.rmtree(static_dest, onexc=_rm_readonly)   # Python 3.12+
+            except TypeError:
+                shutil.rmtree(static_dest, onerror=_rm_readonly)  # Python < 3.12
         if static_src.exists():
             shutil.copytree(static_src, static_dest)
 

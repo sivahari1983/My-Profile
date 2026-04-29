@@ -170,6 +170,14 @@
 
     if (backTop) backTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
+    // Mobile nav toggle
+    const navToggle = document.querySelector('.nav-toggle');
+    const navMenu   = document.querySelector('.nav-menu');
+    if (navToggle && navMenu) {
+        navToggle.addEventListener('click', () => navMenu.classList.toggle('open'));
+        links.forEach(l => l.addEventListener('click', () => navMenu.classList.remove('open')));
+    }
+
     // Smooth anchor scroll
     document.querySelectorAll('a[href^="#"]').forEach(a => {
         a.addEventListener('click', e => {

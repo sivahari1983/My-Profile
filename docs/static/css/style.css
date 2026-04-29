@@ -204,6 +204,10 @@ body:has(button:hover) #cursor-ring {
     backdrop-filter: blur(8px);
     box-shadow: 0 2px 12px rgba(0,0,0,0.06);
     transition: var(--t);
+    text-decoration: none;
+    cursor: pointer;
+    display: inline-block;
+    text-align: center;
 }
 .stat:hover {
     background: rgba(255,255,255,0.9);

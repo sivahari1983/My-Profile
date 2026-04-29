@@ -1,0 +1,34 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git *)",
+      "Bash(python *)",
+      "Bash(py *)",
+      "Read"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "py \"C:/Users/hnataraj/OneDrive - Capgemini/Dokument/Sandbox Folder/My-Profile/.claude/play_sound.py\"",
+            "async": true
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "py \"C:/Users/hnataraj/OneDrive - Capgemini/Dokument/Sandbox Folder/My-Profile/.claude/play_sound.py\"",
+            "async": true
+          }
+        ]
+      }
+    ]
+  }
+}

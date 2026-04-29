@@ -77,6 +77,32 @@ Push to `upstream main` to deploy directly, or push to `origin main` and open a 
 
 All colours are CSS custom properties in the `:root` block at the top of `static/css/style.css`. Change colours there and the hardcoded `rgba(...)` values below them in the same file — then run `generate_static.py` to sync to `docs/`.
 
+## Playwright UI Testing
+
+After any change to `templates/`, `static/css/style.css`, or `static/js/main.js`, verify the UI using the Playwright MCP tools (`mcp__playright__*`) before committing. The Flask server must be running first.
+
+**Start the server (Windows):**
+```bash
+C:\Users\hnataraj\AppData\Local\Microsoft\WindowsApps\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\python.exe app.py
+```
+
+**Standard verification flow:**
+1. `mcp__playright__browser_navigate` → `http://localhost:5000`
+2. `mcp__playright__browser_take_screenshot` — confirm page loads
+3. `mcp__playright__browser_snapshot` — inspect element roles and links
+4. `mcp__playright__browser_evaluate` — run JS assertions (scroll position, href values, DOM structure)
+5. `mcp__playright__browser_wait_for` — wait for smooth-scroll animations (`time: 1.5`)
+6. `mcp__playright__browser_resize` → `{ width: 375, height: 812 }` — test mobile layout
+7. `mcp__playright__browser_console_messages` — check for JS errors
+
+**Screenshots:**
+Save verification screenshots to `tests/screenshots/` (tracked in git). Root-level `*.png` files are gitignored. Embed screenshots in `task.md` as test evidence after each feature change.
+
+**Notes:**
+- Flask in non-debug mode caches templates per process. If the served HTML does not reflect template edits, kill all Python processes and restart the server fresh via PowerShell: `Get-Process python* | Stop-Process -Force`
+- Smooth-scroll uses `e.preventDefault()` so `window.location.hash` is not updated — use `window.scrollY` to assert navigation worked
+- Playwright screenshots and `.playwright-mcp/` temp folder are gitignored at the root level
+
 ## Deployment Flow
 
 ```

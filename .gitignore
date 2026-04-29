@@ -44,3 +44,8 @@ htmlcov/
 build/
 dist/
 *.egg-info/
+
+# Playwright MCP
+.playwright-mcp/
+*.png
+*.jpeg

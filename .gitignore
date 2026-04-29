@@ -47,5 +47,5 @@ dist/
 
 # Playwright MCP
 .playwright-mcp/
-*.png
-*.jpeg
+/*.png
+/*.jpeg

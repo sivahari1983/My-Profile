@@ -27,3 +27,35 @@ Use the `mcp__playright__*` tools to visually verify UI changes before committin
 - [ ] Capture network requests to confirm view count fetch succeeds (`mcp__playright__browser_network_requests`)
 - [ ] Regenerate static site (`python generate_static.py`) and navigate to `docs/index.html` to verify parity
 - [ ] Take final screenshot and compare with previous for regressions
+
+---
+
+## Stat Boxes Navigation — Playwright Test Evidence
+
+**Task:** Make hero stat boxes (Years Experience, Certified, Workshops Delivered) clickable and navigate to their respective sections.
+
+**Date:** 2026-04-29 | **Tool:** Playwright MCP (`mcp__playright__*`)
+
+### 1. Hero section — stat boxes before clicking
+
+![Hero stat boxes](tests/screenshots/hero-stats-final.png)
+
+> Three stat boxes rendered as anchor links with `cursor: pointer`. Visual appearance unchanged from previous `<div>` version.
+
+### 2. Click "20+ Years Experience" → Experience section
+
+![Experience section](tests/screenshots/verify-experience.png)
+
+> Page smooth-scrolled to the Experience section. Navbar "Experience" link highlighted in green.
+
+### 3. Click "20X Certified" → Certifications section
+
+![Certifications section](tests/screenshots/verify-certifications.png)
+
+> Page smooth-scrolled to the Certifications section. Navbar "Certifications" link highlighted in green.
+
+### 4. Click "10+ Workshops Delivered" → Speaking section
+
+![Speaking section](tests/screenshots/verify-speaking.png)
+
+> Page smooth-scrolled to the "On Stage & In the Community" speaking section showing workshops and events.

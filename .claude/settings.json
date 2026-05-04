@@ -6,5 +6,8 @@
       "Bash(py *)",
       "Read"
     ]
+  },
+  "enabledPlugins": {
+    "code-documentation@claude-code-workflows": true
   }
 }
